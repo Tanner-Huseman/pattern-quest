@@ -226,8 +226,5 @@ export function computeWindowChars(belt: (number | string)[], left: number, righ
 
 export function hasRepeats(belt: (number | string)[], left: number, right: number): boolean {
   const chars = computeWindowChars(belt, left, right)
-  for (const count of chars.values()) {
-    if (count > 1) return false
-  }
-  return true
+  return Array.from(chars.values()).every(count => count === 1)
 }

@@ -1,11 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ['@pixi/react'],
-  experimental: {
-    outputFileTracingIncludes: {
-      '/**': ['./node_modules/pyodide/**/*'],
-    },
-  },
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
@@ -15,19 +10,6 @@ const nextConfig = {
         crypto: false,
       };
     }
-
-    // Handle web workers
-    config.module.rules.push({
-      test: /\.worker\.(ts|js)$/,
-      use: {
-        loader: 'worker-loader',
-        options: {
-          filename: 'static/[hash].worker.js',
-          publicPath: '/_next/',
-        },
-      },
-    });
-
     return config;
   },
   async headers() {
